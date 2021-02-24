@@ -1,4 +1,4 @@
-import { OrbitControls } from './three/examples/jsm/controls/OrbitControls.js';
+import { OrbitControls } from 'https://unpkg.com/three@0.119.0/examples/jsm/controls/OrbitControls.js';
 //import { OrbitControls } from 'three/examples/jsm/OrbitControls';
 //import {OrbitControls} from "./three/examples/jsm/controls.OrbitControls.js";
 var loader = new THREE.TextureLoader();
