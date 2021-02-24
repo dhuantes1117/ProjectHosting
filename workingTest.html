@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!--- Linking to external stylesheet doesn't work for some reason...--->
+		<link rel = "stylesheet" type = "test/css" href = "./style.css" />
+		<style>
+			body {
+			  position: relative;
+			  text-align: center;
+			  margin: 0 auto;
+			}
+			header {
+			  position: relative;
+			  text-align: center;
+			  margin: auto;
+			}
+			div {
+			  object-position: center;
+			  position: relative;
+			  text-align: center;
+			}
+		</style>
+		<meta charset="utf-8">
+		<title>Diamond quasiunit cell</title>
+	</head>
+
+	<body>
+    <header>
+      <h1>Structure of a Diamond Quasi Unit Cell</h1>
+    </header>
+		<div id="crystal">
+    	<script src="js/three.js"></script>
+			<script type="module" src="./DiamondScript.js"></script>
+		</div>
+		<header>
+			<h1>Color Cube</h1>
+		</header>
+		<div id="colorcube">
+    	<script src="js/three.js"></script>
+			<script type="module" src="./ColorCube.js"></script>
+		</div>
+
+  </body>
+</html>

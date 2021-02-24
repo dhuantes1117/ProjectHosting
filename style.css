@@ -1,0 +1,15 @@
+body {
+  position: relative;
+  text-align: center;
+  margin: 0 auto;
+}
+header {
+  position: relative;
+  text-align: center;
+  margin: auto;
+}
+div {
+  object-position: center;
+  position: relative;
+  text-align: center;
+}
