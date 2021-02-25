@@ -104,10 +104,7 @@ function SimpleCubic(){
              flag1 = x % 4 == 0;
              flag2 = y % 4 == 0;
              flag3 = z % 4 == 0;
-             flagA = flag1 && flag2;
-             flagB = flag2 && flag3;
-             flagC = flag1 && flag3;
-             if(flagA || flagB || flagC){
+             if(flag1 && flag2 && flag3){
                console.log("(" + x + ", " + y + ", " + z + ")");
                x_locations.push(i * a);
                y_locations.push(j * a);
