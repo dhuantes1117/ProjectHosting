@@ -28,7 +28,7 @@ const group = new THREE.Group();
 
 const controls = new OrbitControls(camera, renderer.domElement);
 
-crystal_dict = {"sc": [0], "bcc": [1], "fcc": [2], "hcp": [3], "Diamond": [4]};
+const crystal_dict = {"sc": [0], "bcc": [1], "fcc": [2], "hcp": [3], "Diamond": [4]};
 
 // add to module file
 function generateLattice(i){
