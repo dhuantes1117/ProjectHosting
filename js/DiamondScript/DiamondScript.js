@@ -35,6 +35,9 @@ function generateLattice(var i){
   switch(i){
     case 0:
       // Simple Cubic 
+      group.children = []
+      SimpleCubic();
+      break;
     case 1:
       // Body Centered Cubic 
     case 2:
@@ -43,41 +46,8 @@ function generateLattice(var i){
       // Hexagonal Close Packed
     case 4:
       // Diamond 
-      for(i = -2; i < 3; i++){
-          for(j = -2; j < 3; j++){
-              for(k = -2; k < 3; k++){
-                 x = i + 2;
-                 y = j + 2;
-                 z = k + 2;
-                 flag1 = (x % 2 == y % 2) && (y % 2 == z % 2);
-                 flag2 = (x + y + z) % 4 == 0;
-                 flag3 = (x + y + z) % 4 == 1;
-                 if(flag1 && (flag2 || flag3)){
-                   console.log("(" + x + ", " + y + ", " + z + ")");
-                   x_locations.push(i * a);
-                   y_locations.push(j * a);
-                   z_locations.push(k * a);
-                   if(x > 0 && x < 4 && y > 0 && y < 4 && z > 0 && z < 4){
-                     var c = "rgb(" + 84 + ", " + 196 + ", " + 150 + ")";
-                   } else if ((x == 0 || x == 4) && (y == 0 || y == 4) && (z == 0 || z == 4)){
-                       var c = "rgb(" + 255 + ", " + 255 + ", " + 255 + ")";
-                   } else {
-                     var c = "rgb(" + 73 + ", " + 98 + ", " + 166 + ")";
-                   }
-                   geometries.push(new THREE.MeshBasicMaterial( {color: c} ));
-                   spheres.push(new THREE.SphereBufferGeometry(0.9, 20, 20));
-
-                   finalSpheres.push(new THREE.Mesh(spheres[m], geometries[m]));
-                   finalSpheres[m].translateX(x_locations[m]);
-                   finalSpheres[m].translateY(y_locations[m]);
-                   finalSpheres[m].translateZ(z_locations[m]);
-                   group.add(finalSpheres[m]);
-                   m += 1;
-                 }
-              }
-          }
-      }
-
+      group.children = []
+      Diamond();
       break;
     default:
       return null;
@@ -85,11 +55,81 @@ function generateLattice(var i){
 }
 
 function Diamond(){
+  for(i = -2; i < 3; i++){
+      for(j = -2; j < 3; j++){
+          for(k = -2; k < 3; k++){
+             x = i + 2;
+             y = j + 2;
+             z = k + 2;
+             flag1 = (x % 2 == y % 2) && (y % 2 == z % 2);
+             flag2 = (x + y + z) % 4 == 0;
+             flag3 = (x + y + z) % 4 == 1;
+             if(flag1 && (flag2 || flag3)){
+               console.log("(" + x + ", " + y + ", " + z + ")");
+               x_locations.push(i * a);
+               y_locations.push(j * a);
+               z_locations.push(k * a);
+               if(x > 0 && x < 4 && y > 0 && y < 4 && z > 0 && z < 4){
+                 var c = "rgb(" + 84 + ", " + 196 + ", " + 150 + ")";
+               } else if ((x == 0 || x == 4) && (y == 0 || y == 4) && (z == 0 || z == 4)){
+                   var c = "rgb(" + 255 + ", " + 255 + ", " + 255 + ")";
+               } else {
+                 var c = "rgb(" + 73 + ", " + 98 + ", " + 166 + ")";
+               }
+               geometries.push(new THREE.MeshBasicMaterial( {color: c} ));
+               spheres.push(new THREE.SphereBufferGeometry(0.9, 20, 20));
+
+               finalSpheres.push(new THREE.Mesh(spheres[m], geometries[m]));
+               finalSpheres[m].translateX(x_locations[m]);
+               finalSpheres[m].translateY(y_locations[m]);
+               finalSpheres[m].translateZ(z_locations[m]);
+               group.add(finalSpheres[m]);
+               m += 1;
+             }
+          }
+      }
+  }
+}
+
+function SimpleCubic(){
+  for(i = -2; i < 3; i++){
+      for(j = -2; j < 3; j++){
+          for(k = -2; k < 3; k++){
+             x = i + 2;
+             y = j + 2;
+             z = k + 2;
+             flag1 = (x + y + z) % 4 == 0;
+             if(flag1){
+               console.log("(" + x + ", " + y + ", " + z + ")");
+               x_locations.push(i * a);
+               y_locations.push(j * a);
+               z_locations.push(k * a);
+               if(x > 0 && x < 4 && y > 0 && y < 4 && z > 0 && z < 4){
+                 var c = "rgb(" + 84 + ", " + 196 + ", " + 150 + ")";
+               } else if ((x == 0 || x == 4) && (y == 0 || y == 4) && (z == 0 || z == 4)){
+                   var c = "rgb(" + 255 + ", " + 255 + ", " + 255 + ")";
+               } else {
+                 var c = "rgb(" + 73 + ", " + 98 + ", " + 166 + ")";
+               }
+               geometries.push(new THREE.MeshBasicMaterial( {color: c} ));
+               spheres.push(new THREE.SphereBufferGeometry(0.9, 20, 20));
+
+               finalSpheres.push(new THREE.Mesh(spheres[m], geometries[m]));
+               finalSpheres[m].translateX(x_locations[m]);
+               finalSpheres[m].translateY(y_locations[m]);
+               finalSpheres[m].translateZ(z_locations[m]);
+               group.add(finalSpheres[m]);
+               m += 1;
+             }
+          }
+      }
+  }
 
 }
 
 function init(){
-  generateLattice(crystal_dict['Diamond']);
+  //generateLattice(crystal_dict['Diamond']);
+  generateLattice(crystal_dict['sc']);
 
   scene.add(group);
 
