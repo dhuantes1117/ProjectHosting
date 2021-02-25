@@ -40,10 +40,13 @@ function generateLattice(i){
       break;
     case 1:
       // Body Centered Cubic 
+      break;
     case 2:
       // Face Centered Cubic
+      break;
     case 3:
       // Hexagonal Close Packed
+      break;
     case 4:
       // Diamond 
       // group.children = [];
@@ -98,8 +101,13 @@ function SimpleCubic(){
              x = i + 2;
              y = j + 2;
              z = k + 2;
-             flag1 = (x + y + z) % 4 == 0;
-             if(flag1){
+             flag1 = x % 4 == 0;
+             flag2 = y % 4 == 0;
+             flag3 = z % 4 == 0;
+             flagA = flag1 && flag2;
+             flagB = flag2 && flag3;
+             flagC = flag1 && flag3;
+             if(flagA || flagB || flagC){
                console.log("(" + x + ", " + y + ", " + z + ")");
                x_locations.push(i * a);
                y_locations.push(j * a);
