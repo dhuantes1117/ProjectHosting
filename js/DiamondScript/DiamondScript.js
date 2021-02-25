@@ -35,7 +35,7 @@ function generateLattice(i){
   switch(i){
     case 0:
       // Simple Cubic 
-      // group.children = [];
+      group.children = [];
       SimpleCubic();
       break;
     case 1:
@@ -49,7 +49,7 @@ function generateLattice(i){
       break;
     case 4:
       // Diamond 
-      // group.children = [];
+      group.children = [];
       Diamond();
       break;
     default:
@@ -132,8 +132,8 @@ function SimpleCubic(){
 }
 
 function init(){
+  generateLattice(crystal_dict['sc'][0]);
   generateLattice(crystal_dict['Diamond'][0]);
-  //  generateLattice(crystal_dict['sc'][0]);
 
   scene.add(group);
 
