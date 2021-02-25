@@ -35,7 +35,7 @@ function generateLattice(var i){
   switch(i){
     case 0:
       // Simple Cubic 
-      group.children = [];
+      // group.children = [];
       SimpleCubic();
       break;
     case 1:
@@ -46,7 +46,7 @@ function generateLattice(var i){
       // Hexagonal Close Packed
     case 4:
       // Diamond 
-      group.children = [];
+      // group.children = [];
       Diamond();
       break;
     default:
@@ -124,7 +124,6 @@ function SimpleCubic(){
           }
       }
   }
-
 }
 
 function init(){
