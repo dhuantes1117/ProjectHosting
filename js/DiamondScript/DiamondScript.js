@@ -248,8 +248,8 @@ function HexagonalClosePacked(){
 
 function init(){
   generateLattice(crystal_dict['sc'][0]);
-  generateLattice(crystal_dict['Diamond'][0]);
   generateLattice(crystal_dict['fcc'][0]);
+  generateLattice(crystal_dict['Diamond'][0]);
 
   scene.add(group);
 
