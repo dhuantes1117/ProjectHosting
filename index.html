@@ -4,6 +4,13 @@
 		<!--- Linking to external stylesheet doesn't work for some reason...--->
 		<link rel = "stylesheet" type = "test/css" href = "./style.css" />
 		<style>
+      #crystal_label{
+				color: #000000;
+				font-family: Times New Roman;
+				font-size: 24px;
+				line-height: 48px;
+        text-align: center;
+      }
 			body {
 			  position: relative;
 			  text-align: center;
@@ -26,12 +33,19 @@
 
 	<body>
     <header>
-      <h1>Structure of a Diamond Quasi Unit Cell</h1>
+      <h1>Interactive Lattice Models</h1>
+      <h3>press <em>n</em> to move through lattices</h3>
     </header>
+
 		<div id="crystal">
     	<script src='https://unpkg.com/three@0.119.0/build/three.js'></script>
 			<script type="module" src="./js/DiamondScript/DiamondScript.js"></script>
 		</div>
+
+    <div id="crystal_label">
+      <span>Diamond Quasi Cell</span>
+    </div>
+
 		<header>
 			<h1>Color Cube</h1>
 		</header>
