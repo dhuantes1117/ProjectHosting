@@ -11,6 +11,12 @@
 				line-height: 48px;
         text-align: center;
       }
+			.code_label{
+				background-color: blue
+			}
+			.code{
+				background-color: red
+			}
 			body {
 			  position: relative;
 			  text-align: center;
@@ -33,11 +39,11 @@
 
 	<body>
     <header>
-      <h1>Interactive Lattice Models</h1>
+      <h1 class="code_label">Interactive Lattice Models</h1>
       <h3>press <em>n</em> to move through lattices</h3>
     </header>
 
-		<div id="crystal">
+		<div id="crystal" class="code">
     	<script src='https://unpkg.com/three@0.119.0/build/three.js'></script>
 			<script type="module" src="./js/DiamondScript/DiamondScript.js"></script>
 		</div>
@@ -47,9 +53,9 @@
     </div>
 
 		<header>
-			<h1>Color Cube</h1>
+			<h1 class="code_label">Color Cube</h1>
 		</header>
-		<div id="colorcube">
+		<div id="colorcube" class="code">
 			<script type="module" src="./js/ColorCube/ColorCube.js"></script>
 		</div>
 
