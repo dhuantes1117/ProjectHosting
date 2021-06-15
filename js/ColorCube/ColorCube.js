@@ -103,7 +103,7 @@ function animate(){
   camera.lookAt( scene.position );
   camera.updateMatrixWorld;
   raycaster.setFromCamera( pointer, camera );
-  const intersects = raycaster.intersectsObjects( scene.children );
+  const intersects = raycaster.intersectObjects( scene.children );
   if (intersects.length > 0) {
     if (INTERSECTED != intersects[ 0 ].object) {
       if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
