@@ -61,7 +61,7 @@ function init(){
       }
     }
   }
-  raycaster = new THREE.Raycasster();
+  raycaster = new THREE.Raycaster();
 }
 
 scene.add(group);
