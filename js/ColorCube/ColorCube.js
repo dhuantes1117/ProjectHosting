@@ -1,28 +1,19 @@
 import { OrbitControls } from 'https://unpkg.com/three@0.119.0/examples/jsm/controls/OrbitControls.js';
 
+
+
 var loader = new THREE.TextureLoader();
 loader.setCrossOrigin("anonymous");
 const scene = new THREE.Scene();
-// THREE.PerspectiveCamera(field of view, aspect ratio, near
-// clipping plane, far clipping plane) only objects within
-// clipping planes will be rendered, others will be 'clipped'
-/*
-let raycaster;
-let INTERSECTED;
-const mouse = new THREE.Vector2();
-raycaster = new THREE.Raycaster();
-document.addEventListener('click', onDocumentMouseClick, false)
-window.addEventListener( 'resize', onWindowResize, false );
-function onDocumentMouseMove( event ) {
-  event.preventDefault();
-
-  mouse.x = (event.clientX / window.innerWidth) * 2 - 1
-  mouse.y = (event.clientY / window.innerHeight) * 2 - 1
-}
-*/
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
 const renderer = new THREE.WebGLRenderer();
+
+let raycaster;
+let INTERSECTED;
+let theta = 0;
+const pointer = new THREE.Vector2();
+
 renderer.setSize(window.innerWidth / 2, window.innerHeight / 2);// for intensive problems you can give smaller values
 document.getElementById('colorcube').appendChild( renderer.domElement );
 //document.body.appendChild( renderer.domElement );//<canvas> element
@@ -70,6 +61,7 @@ function init(){
       }
     }
   }
+  raycaster = new THREE.Raycasster();
 }
 
 scene.add(group);
@@ -82,6 +74,11 @@ const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 controls.dampingFactor = 0.2;
 controls.screenSpaceFactor = false;
+
+function onPointerMove( event ) {
+  pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+  pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+}
 
 const onKeyPress = function ( event ) {
   switch ( event.key ) {
@@ -103,6 +100,21 @@ document.addEventListener("keypress", onKeyPress, false);
 
 function animate(){
   requestAnimationFrame(animate);
+  camera.lookAt( scene.position );
+  camera.updateMatrixWorld;
+  raycaster.setFromCamera( pointer, camera );
+  const intersects = raycaster.intersectsObjects( scene.children );
+  if (intersects.length > 0) {
+    if (INTERSECTED != intersects[ 0 ].object) {
+      if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+        INTERSECTED = intersects[ 0 ].object;
+        INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+        INTERSECTED.material.emissive.setHex(0xff0000);
+    }
+  } else {
+    if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+    INTERSECTED = null;
+  }
   renderer.render(scene, camera);
   controls.update();
 }
