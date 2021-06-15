@@ -1,6 +1,5 @@
 import { OrbitControls } from 'https://unpkg.com/three@0.119.0/examples/jsm/controls/OrbitControls.js';
-//import { OrbitControls } from 'three/examples/jsm/OrbitControls';
-//import {OrbitControls} from "./three/examples/jsm/controls.OrbitControls.js";
+
 var loader = new THREE.TextureLoader();
 loader.setCrossOrigin("anonymous");
 const scene = new THREE.Scene();
@@ -34,65 +33,79 @@ const z_locations = [];
 const geometries = [];
 const spheres = [];
 const finalSpheres = [];
-var i;
-var j;
-var k;
-//include variable range and density
-for(i = -5; i < 6; i++) {
-  for(j = -5; j < 6; j++) {
-    for(k = -5; k < 6; k++) {
-      var r = ~~((i + 5) * 255 / 10);
-      var g = ~~((j + 5) * 255 / 10);
-      var b = ~~((k + 5) * 255 / 10);
-      var c = "rgb(" + r + ", " + g + ", " + b + ")";
-      x_locations.push(r);
-      y_locations.push(g);
-      z_locations.push(b);
-//      var testsphereGeom = new THREE.SphereGeometry( 1, 32, 32 );
-      geometries.push(new THREE.MeshBasicMaterial( {color: c} ));
-      spheres.push(new THREE.SphereBufferGeometry(0.4, 20, 20));
-    }
-  }
-}
-for(i = 0; i < geometries.length; i++){
-  finalSpheres.push(new THREE.Mesh(spheres[i], geometries[i]));
-}
 const group = new THREE.Group();
-
+var i, j, k;
+var x, y, z;
+var r, g, b;
+var c;
+var n = 11;
 var w = 0;
-for(i = -5; i < 6; i++) {
-  for(j = -5; j < 6; j++) {
-    for(k = -5; k < 6; k++) {
-      //see if we can handle this logic with python... generate colors and feed in grids/files as values
-      finalSpheres[w].translateX(i * 2);
-      finalSpheres[w].translateY(j * 2);
-      finalSpheres[w].translateZ(k * 2);
-      group.add(finalSpheres[w]);
-      w += 1;
+var spacing = 2;
+var radius = spacing / 5.0;
+var cameraZ = 3 * n;
+
+//include variable range and density
+function init(){
+  for(i = 0; i < n; i++) {
+    for(j = 0; j < n; j++) {
+      for(k = 0; k < n; k++) {
+        x = i - ((n - 1) / 2);
+        y = j - ((n - 1) / 2);
+        z = k - ((n - 1) / 2);
+        r = ~~(i * 255 / n);
+        g = ~~(j * 255 / n);
+        b = ~~(k * 255 / n);
+        c = "rgb(" + r + ", " + g + ", " + b + ")";
+        x_locations.push(r);
+        y_locations.push(g);
+        z_locations.push(b);
+        geometries.push(new THREE.MeshBasicMaterial( {color: c} ));
+        spheres.push(new THREE.SphereBufferGeometry(radius, 20, 20));
+        finalSpheres.push(new THREE.Mesh(spheres[w], geometries[w]));
+        finalSpheres[w].translateX(x * spacing);
+        finalSpheres[w].translateY(y * spacing);
+        finalSpheres[w].translateZ(z * spacing);
+        group.add(finalSpheres[w]);
+        w += 1;
+      }
     }
   }
 }
+
 scene.add(group);
 
-camera.position.z = 55;
+camera.position.z = cameraZ;
 camera.position.x = 0;
 camera.position.y = 0;
 
-//const Mod = THREE.OrbitControls;
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 controls.dampingFactor = 0.2;
 controls.screenSpaceFactor = false;
 
+const onKeyPress = function ( event ) {
+  switch ( event.key ) {
+    case 'n':
+      n += 1;
+      group.children = [];
+      init();
+    break;
+    case 'N':
+      n -= 1;
+      group.children = [];
+      init();
+    break;
+    default:
+  }
+}
+
+document.addEventListener("keypress", onKeyPress, false);
+
 function animate(){
   requestAnimationFrame(animate);
   renderer.render(scene, camera);
   controls.update();
-  //const intersects = raycaster.instersectObjects( scene.children );
-  //replace with drag and drop values
-//  group.rotation.x += 0.01;
-//  group.rotation.y += 0.008;
-//  group.rotation.z += 0.007;
 }
 
+init();
 animate();

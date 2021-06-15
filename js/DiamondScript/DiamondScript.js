@@ -81,7 +81,6 @@ function Diamond(){
              flag2 = (x + y + z) % 4 == 0;
              flag3 = (x + y + z) % 4 == 1;
              if(flag1 && (flag2 || flag3)){
-               console.log("(" + x + ", " + y + ", " + z + ")");
                x_locations.push(i * a);
                y_locations.push(j * a);
                z_locations.push(k * a);
