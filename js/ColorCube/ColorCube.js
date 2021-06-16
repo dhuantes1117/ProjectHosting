@@ -77,6 +77,38 @@ controls.dampingFactor = 0.2;
 controls.screenSpaceFactor = false;
 
 const onMouseClick = function ( event ){
+    event.preventDefault();
+    document.getElementById("rgb_label").innerHTML =  "RGB: [" + Math.round(255 * INTERSECTED.material.color.r) + ", " + Math.round(255 * INTERSECTED.material.color.g) + ", " + Math.round(255 * INTERSECTED.material.color.b) + "]";
+    scene.background = INTERSECTED.material.color;
+}
+const onTouchStart = function ( event ){
+    event.preventDefault();
+    pointer.x = event.changedTouches[0].pageX;
+    pointer.y = event.changedTouches[0].pageY;
+    raycaster.setFromCamera( pointer, camera );
+    const intersects = raycaster.intersectObjects( group.children );
+    if (intersects.length > 0) {
+      if (INTERSECTED != intersects[ 0 ].object) {
+        if( INTERSECTED ){
+          //INTERSECTED.material.color.set(prevColor);
+          //INTERSECTED.geometry.parameters.radius = 0.4;
+          INTERSECTED.scale.set(1, 1, 1);
+        }
+        INTERSECTED = intersects[ 0 ].object;
+        prevColor = new THREE.Color(INTERSECTED.material['color']);
+        //INTERSECTED.material.color.set("rgb(0, 0, 0)");
+        //INTERSECTED.geometry.parameters.radius = 0.5;
+        INTERSECTED.scale.set(1.3, 1.3, 1.3);
+      }
+    }
+    else {
+      if(INTERSECTED){
+        //INTERSECTED.material.color.set(prevColor);
+        //INTERSECTED.geometry.parameters.radius = 0.4;
+        INTERSECTED.scale.set(1, 1, 1);
+      }
+      INTERSECTED = null;
+    }
     document.getElementById("rgb_label").innerHTML =  "RGB: [" + Math.round(255 * INTERSECTED.material.color.r) + ", " + Math.round(255 * INTERSECTED.material.color.g) + ", " + Math.round(255 * INTERSECTED.material.color.b) + "]";
     scene.background = INTERSECTED.material.color;
 }
@@ -102,10 +134,14 @@ const onKeyPress = function ( event ) {
   }
 }
 
-document.addEventListener("keypress", onKeyPress, false);
-document.addEventListener("mousemove", onPointerMove, false);
-document.addEventListener("mousedown", onMouseClick, false);
-document.addEventListener("touchstart", onMouseClick, false);
+function startup(){
+  var canv = document.getElementById("colorcube");
+  canv.addEventListener("keypress", onKeyPress, false);
+  canv.addEventListener("mousemove", onPointerMove, false);
+  canv.addEventListener("mousedown", onMouseClick, false);
+  canv.addEventListener("touchstart", onMouseClick, false);
+}
+document.addEventListener("DOMContentLoaded", startup);
 
 function animate(){
   requestAnimationFrame(animate);
