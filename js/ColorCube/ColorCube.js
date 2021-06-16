@@ -105,6 +105,7 @@ const onKeyPress = function ( event ) {
 document.addEventListener("keypress", onKeyPress, false);
 document.addEventListener("mousemove", onPointerMove, false);
 document.addEventListener("mousedown", onMouseClick, false);
+document.addEventListener("touchstart", onMouseClick, false);
 
 function animate(){
   requestAnimationFrame(animate);
