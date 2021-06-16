@@ -148,8 +148,6 @@ function startup(){
   canv.addEventListener("mousemove", onPointerMove, false);
   canv.addEventListener("mousedown", onMouseClick, false);
   canv.addEventListener("touchend", onTouchStart, false);
-  canv.addEventListener("touchmove", onTouchStart, false);
-  canv.addEventListener("touchstart", onTouchStart, false);
 }
 document.addEventListener("DOMContentLoaded", startup);
 
