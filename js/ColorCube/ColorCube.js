@@ -13,6 +13,7 @@ let raycaster;
 let INTERSECTED;
 let theta = 0;
 const pointer = new THREE.Vector2();
+let prevColor;
 
 renderer.setSize(window.innerWidth / 2, window.innerHeight / 2);// for intensive problems you can give smaller values
 document.getElementById('colorcube').appendChild( renderer.domElement );
@@ -37,6 +38,7 @@ var cameraZ = 3 * n;
 
 //include variable range and density
 function init(){
+  console.log(document.getElementById('colorcube'));
   for(i = 0; i < n; i++) {
     for(j = 0; j < n; j++) {
       for(k = 0; k < n; k++) {
@@ -75,9 +77,11 @@ controls.enableDamping = true;
 controls.dampingFactor = 0.2;
 controls.screenSpaceFactor = false;
 
-function onPointerMove( event ) {
-  pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
-  pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+const onPointerMove = function ( event ) {
+  //console.log(document.getElementById('colorcube'));
+  let canvasBounds = renderer.getContext().canvas.getBoundingClientRect();
+  pointer.x = ( ( event.clientX - canvasBounds.left ) / ( canvasBounds.right - canvasBounds.left ) ) * 2 - 1;
+  pointer.y = - ( ( event.clientY - canvasBounds.top ) / ( canvasBounds.bottom - canvasBounds.top ) ) * 2 + 1;
 }
 
 const onKeyPress = function ( event ) {
@@ -97,25 +101,37 @@ const onKeyPress = function ( event ) {
 }
 
 document.addEventListener("keypress", onKeyPress, false);
+document.addEventListener("mousemove", onPointerMove, false);
 
 function animate(){
   requestAnimationFrame(animate);
   camera.lookAt( scene.position );
-  camera.updateMatrixWorld;
   raycaster.setFromCamera( pointer, camera );
-  const intersects = raycaster.intersectObjects( scene.children );
+  const intersects = raycaster.intersectObjects( group.children );
   if (intersects.length > 0) {
-    console.log("HIT")
     if (INTERSECTED != intersects[ 0 ].object) {
-      if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
-        INTERSECTED = intersects[ 0 ].object;
-        INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
-        INTERSECTED.material.emissive.setHex(0xff0000);
+      if( INTERSECTED ){
+        //INTERSECTED.material.color.set(prevColor);
+        //INTERSECTED.geometry.parameters.radius = 0.4;
+        INTERSECTED.scale.set(1, 1, 1);
+      }
+      INTERSECTED = intersects[ 0 ].object;
+      prevColor = new THREE.Color(INTERSECTED.material['color']);
+      //INTERSECTED.material.color.set("rgb(0, 0, 0)");
+      //INTERSECTED.geometry.parameters.radius = 0.5;
+      INTERSECTED.scale.set(1.3, 1.3, 1.3);
+      console.log(INTERSECTED);
     }
-  } else {
-    if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+  }
+  else {
+    if(INTERSECTED){
+      //INTERSECTED.material.color.set(prevColor);
+      //INTERSECTED.geometry.parameters.radius = 0.4;
+      INTERSECTED.scale.set(1, 1, 1);
+    }
     INTERSECTED = null;
   }
+  camera.updateMatrixWorld;
   renderer.render(scene, camera);
   controls.update();
 }
