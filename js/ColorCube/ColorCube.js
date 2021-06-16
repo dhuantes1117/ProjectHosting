@@ -105,6 +105,7 @@ function animate(){
   raycaster.setFromCamera( pointer, camera );
   const intersects = raycaster.intersectObjects( scene.children );
   if (intersects.length > 0) {
+    console.log("HIT")
     if (INTERSECTED != intersects[ 0 ].object) {
       if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
         INTERSECTED = intersects[ 0 ].object;
