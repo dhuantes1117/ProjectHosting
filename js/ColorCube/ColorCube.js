@@ -38,16 +38,15 @@ var cameraZ = 3 * n;
 
 //include variable range and density
 function init(){
-  console.log(document.getElementById('colorcube'));
   for(i = 0; i < n; i++) {
     for(j = 0; j < n; j++) {
       for(k = 0; k < n; k++) {
         x = i - ((n - 1) / 2);
         y = j - ((n - 1) / 2);
         z = k - ((n - 1) / 2);
-        r = ~~(i * 255 / n);
-        g = ~~(j * 255 / n);
-        b = ~~(k * 255 / n);
+        r = ~~(i * 255 / (n - 1));
+        g = ~~(j * 255 / (n - 1));
+        b = ~~(k * 255 / (n - 1));
         c = "rgb(" + r + ", " + g + ", " + b + ")";
         x_locations.push(r);
         y_locations.push(g);
@@ -77,8 +76,11 @@ controls.enableDamping = true;
 controls.dampingFactor = 0.2;
 controls.screenSpaceFactor = false;
 
+const onMouseClick = function ( event ){
+    document.getElementById("rgb_label").innerHTML =  "RGB: [" + Math.round(255 * INTERSECTED.material.color.r) + ", " + Math.round(255 * INTERSECTED.material.color.g) + ", " + Math.round(255 * INTERSECTED.material.color.b) + "]";
+    scene.background = INTERSECTED.material.color;
+}
 const onPointerMove = function ( event ) {
-  //console.log(document.getElementById('colorcube'));
   let canvasBounds = renderer.getContext().canvas.getBoundingClientRect();
   pointer.x = ( ( event.clientX - canvasBounds.left ) / ( canvasBounds.right - canvasBounds.left ) ) * 2 - 1;
   pointer.y = - ( ( event.clientY - canvasBounds.top ) / ( canvasBounds.bottom - canvasBounds.top ) ) * 2 + 1;
@@ -102,6 +104,7 @@ const onKeyPress = function ( event ) {
 
 document.addEventListener("keypress", onKeyPress, false);
 document.addEventListener("mousemove", onPointerMove, false);
+document.addEventListener("mousedown", onMouseClick, false);
 
 function animate(){
   requestAnimationFrame(animate);
@@ -120,7 +123,6 @@ function animate(){
       //INTERSECTED.material.color.set("rgb(0, 0, 0)");
       //INTERSECTED.geometry.parameters.radius = 0.5;
       INTERSECTED.scale.set(1.3, 1.3, 1.3);
-      console.log(INTERSECTED);
     }
   }
   else {
