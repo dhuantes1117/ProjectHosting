@@ -82,7 +82,6 @@ const onMouseClick = function ( event ){
     scene.background = INTERSECTED.material.color;
 }
 const onTouchStart = function ( event ){
-    event.preventDefault();
     //pointer.x = event.changedTouches[0].pageX;
     //pointer.y = event.changedTouches[0].pageY;
     pointer.x = ( ( event.changedTouches[0].pageX - canvasBounds.left ) / ( canvasBounds.right - canvasBounds.left ) ) * 2 - 1;
