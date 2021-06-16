@@ -85,9 +85,8 @@ const onTouchStart = function ( event ){
     //pointer.x = event.changedTouches[0].pageX;
     //pointer.y = event.changedTouches[0].pageY;
     let canvasBounds = renderer.getContext().canvas.getBoundingClientRect();
-    let f = event.changedTouches.length - 1;
-    pointer.x = ( ( event.changedTouches[f].pageX - canvasBounds.left ) / ( canvasBounds.right - canvasBounds.left ) ) * 2 - 1;
-    pointer.y = - ( ( event.changedTouches[f].pageY - canvasBounds.top ) / ( canvasBounds.bottom - canvasBounds.top ) ) * 2 + 1;
+    pointer.x = ( ( event.changedTouches[0].pageX - canvasBounds.left ) / ( canvasBounds.right - canvasBounds.left ) ) * 2 - 1;
+    pointer.y = - ( ( event.changedTouches[0].pageY - canvasBounds.top ) / ( canvasBounds.bottom - canvasBounds.top ) ) * 2 + 1;
     raycaster.setFromCamera( pointer, camera );
     const intersects = raycaster.intersectObjects( group.children );
     if (intersects.length > 0) {
@@ -147,7 +146,7 @@ function startup(){
   canv.addEventListener("keypress", onKeyPress, false);
   canv.addEventListener("mousemove", onPointerMove, false);
   canv.addEventListener("mousedown", onMouseClick, false);
-  canv.addEventListener("touchstart", onTouchStart, false);
+  canv.addEventListener("touchend", onTouchStart, false);
   canv.addEventListener("touchmove", onTouchMove, false);
 }
 document.addEventListener("DOMContentLoaded", startup);
