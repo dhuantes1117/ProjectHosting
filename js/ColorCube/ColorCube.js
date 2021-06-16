@@ -82,10 +82,10 @@ const onMouseClick = function ( event ){
     scene.background = INTERSECTED.material.color;
 }
 const onTouchStart = function ( event ){
-    pointer.x = event.changedTouches[0].pageX;
-    pointer.y = event.changedTouches[0].pageY;
-    //pointer.x = ( ( event.changedTouches[0].pageX - canvasBounds.left ) / ( canvasBounds.right - canvasBounds.left ) ) * 2 - 1;
-    //pointer.y = - ( ( event.changedTouches[0].pageY - canvasBounds.top ) / ( canvasBounds.bottom - canvasBounds.top ) ) * 2 + 1;
+    //pointer.x = event.changedTouches[0].pageX;
+    //pointer.y = event.changedTouches[0].pageY;
+    pointer.x = ( ( event.changedTouches[0].pageX - canvasBounds.left ) / ( canvasBounds.right - canvasBounds.left ) ) * 2 - 1;
+    pointer.y = - ( ( event.changedTouches[0].pageY - canvasBounds.top ) / ( canvasBounds.bottom - canvasBounds.top ) ) * 2 + 1;
     raycaster.setFromCamera( pointer, camera );
     const intersects = raycaster.intersectObjects( group.children );
     if (intersects.length > 0) {
@@ -120,8 +120,11 @@ const onPointerMove = function ( event ) {
 }
 const onTouchMove = function (event){
   let canvasBounds = renderer.getContext().canvas.getBoundingClientRect();
-  pointer.x = ( ( event.changedTouches[0].pageX - canvasBounds.left ) / ( canvasBounds.right - canvasBounds.left ) ) * 2 - 1;
-  pointer.y = - ( ( event.changedTouches[0].pageY - canvasBounds.top ) / ( canvasBounds.bottom - canvasBounds.top ) ) * 2 + 1;
+  var chTouch;
+  for(int i = 0; i < chTouch.length; i++){
+    pointer.x = ( ( event.changedTouches[i].pageX - canvasBounds.left ) / ( canvasBounds.right - canvasBounds.left ) ) * 2 - 1;
+    pointer.y = - ( ( event.changedTouches[i].pageY - canvasBounds.top ) / ( canvasBounds.bottom - canvasBounds.top ) ) * 2 + 1;
+  }
 }
 
 const onKeyPress = function ( event ) {
