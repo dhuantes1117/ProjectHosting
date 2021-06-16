@@ -117,6 +117,11 @@ const onPointerMove = function ( event ) {
   pointer.x = ( ( event.clientX - canvasBounds.left ) / ( canvasBounds.right - canvasBounds.left ) ) * 2 - 1;
   pointer.y = - ( ( event.clientY - canvasBounds.top ) / ( canvasBounds.bottom - canvasBounds.top ) ) * 2 + 1;
 }
+const onTouchMove = function (event){
+  let canvasBounds = renderer.getContext().canvas.getBoundingClientRect();
+  pointer.x = ( ( event.changedTouches[0].pageX - canvasBounds.left ) / ( canvasBounds.right - canvasBounds.left ) ) * 2 - 1;
+  pointer.y = - ( ( event.changedTouches[0].pageY - canvasBounds.top ) / ( canvasBounds.bottom - canvasBounds.top ) ) * 2 + 1;
+}
 
 const onKeyPress = function ( event ) {
   switch ( event.key ) {
