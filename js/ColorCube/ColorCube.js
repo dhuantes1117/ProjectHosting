@@ -85,8 +85,9 @@ const onTouchStart = function ( event ){
     //pointer.x = event.changedTouches[0].pageX;
     //pointer.y = event.changedTouches[0].pageY;
     let canvasBounds = renderer.getContext().canvas.getBoundingClientRect();
-    pointer.x = ( ( event.changedTouches[0].pageX - canvasBounds.left ) / ( canvasBounds.right - canvasBounds.left ) ) * 2 - 1;
-    pointer.y = - ( ( event.changedTouches[0].pageY - canvasBounds.top ) / ( canvasBounds.bottom - canvasBounds.top ) ) * 2 + 1;
+    let f = event.changedTouches.length - 1;
+    pointer.x = ( ( event.changedTouches[f].pageX - canvasBounds.left ) / ( canvasBounds.right - canvasBounds.left ) ) * 2 - 1;
+    pointer.y = - ( ( event.changedTouches[f].pageY - canvasBounds.top ) / ( canvasBounds.bottom - canvasBounds.top ) ) * 2 + 1;
     raycaster.setFromCamera( pointer, camera );
     const intersects = raycaster.intersectObjects( group.children );
     if (intersects.length > 0) {
